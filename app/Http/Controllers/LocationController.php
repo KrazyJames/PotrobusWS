@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Location;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,11 @@ class LocationController extends Controller
     public function __construct()
     {
         //
+    }
+
+    public function getLast(){
+        $location = DB::select('SELECT * FROM locations ORDER BY id DESC LIMIT 1');
+        return response()->json($location);
     }
 
     public function getLastLocation(){

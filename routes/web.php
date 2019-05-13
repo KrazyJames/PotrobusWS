@@ -24,6 +24,7 @@ $router->group(['prefix' => 'api'], function($router){
 });
 
 $router->group(['prefix' => 'location'], function($router){
-    $router->get('location', 'LocationController@getLastLocation');
+    /*$router->get('location', 'LocationController@getLastLocation');*/
+    $router->get('location', 'LocationController@getLast');
     $router->put('location', 'LocationController@updateLastLocation');
 });
