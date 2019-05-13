@@ -1,0 +1,4 @@
+CREATE DATABASE potrobus;
+USE potrobus;
+CREATE TABLE usuarios(id int not null auto_increment, primary key (id), nombre varchar(100), username varchar(100) unique, correo varchar(100) unique not null, contrasena varchar(100), telefono varchar(20) not null, created_at timestamp DEFAULT CURRENT_TIMESTAMP, updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
+CREATE TABLE locations(id int not null auto_increment, primary key (id), lat float(10,6) not null, lng float(10,6) not null, created_at timestamp DEFAULT CURRENT_TIMESTAMP, updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
