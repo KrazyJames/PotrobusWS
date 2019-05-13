@@ -21,10 +21,6 @@ class LocationController extends Controller
         return response()->json(Location::find(1));
     }
 
-    public function insertLastLocation(){
-
-    }
-    
     public function updateLastLocation(Request $request){
         $this->validate($request, [
             'lat' => 'required',
@@ -33,9 +29,5 @@ class LocationController extends Controller
         $location = Location::findOrFail(1);
         $location->update($request->all());
         return response()->json($location, 200);
-    }
-
-    public function deleteLastLocation(){
-        
     }
 }
