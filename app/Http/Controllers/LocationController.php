@@ -23,6 +23,15 @@ class LocationController extends Controller
         return response()->json($location);
     }
 
+    public function insertLocation(){
+        $this->validate($request, [
+            'lat' => 'required',
+            'lng' => 'required'
+        ]);
+        $location = Location::create($request->all());
+        return response()->json($location, 200);
+    }
+
     public function getLastLocation(){
         return response()->json(Location::find(1));
     }
