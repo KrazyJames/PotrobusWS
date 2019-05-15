@@ -18,25 +18,27 @@ class LocationController extends Controller
         //
     }
 
-    public function getLast(){
-        $location = DB::select('SELECT * FROM locations ORDER BY id DESC LIMIT 1');
+    public function getAllLocations(){
+         return response()->json(Location::all());
+    }
+
+    public function getLastLocation(){
+        $locations = DB::select('SELECT * FROM locations ORDER BY id DESC LIMIT 1');
+        $location = $locations[0];
         return response()->json($location);
     }
 
-    public function insertLocation(){
+    public function insertLocation(Request $request){
         $this->validate($request, [
             'lat' => 'required',
             'lng' => 'required'
         ]);
-        $location = Location::create($request->all());
-        return response()->json($location, 200);
+        $locationArray = Location::create($request->all());
+        $location = $locationArray[0];
+        return response()->json($location);
     }
 
-    public function getLastLocation(){
-        return response()->json(Location::find(1));
-    }
-
-    public function updateLastLocation(Request $request){
+    public function updateLocation(Request $request){
         $this->validate($request, [
             'lat' => 'required',
             'lng' => 'required'

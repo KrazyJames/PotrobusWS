@@ -33,7 +33,7 @@ class UsuarioController extends Controller
         ]);
 
         $usuario = Usuario::create($request->all());
-        return response()->json($usuario, 201);
+        return response()->json($usuario[0], 201);
     }
 
     public function update($id, Request $request){
