@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Usuario;
 use Illuminate\Http\Request;
 
@@ -25,15 +26,24 @@ class UsuarioController extends Controller
         return response()->json(Usuario::find($id));
     }
 
-    public function create(Request $request){
+    public function sign(Request $request){
         $this->validate($request, [
             'nombre' => 'required',
             'username' => 'required',
-            'correo' => 'required'
+            'correo' => 'required',
+            'contrasena' => 'required'
         ]);
-
-        $usuario = Usuario::create($request->all());
-        return response()->json($usuario[0], 201);
+        $correo = $request->input('correo');
+        $username = $request->input('username');
+        $users = DB::select("SELECT * FROM usuarios WHERE correo = '$correo' OR username = '$username'");
+        if($users!=null){
+            $error['error'] = 'User already exists';
+            return response()->json($error);
+        }else{
+            $usuario = Usuario::create($request->all());
+            return response()->json($usuario, 201);
+        }
+       
     }
 
     public function update($id, Request $request){
@@ -51,5 +61,20 @@ class UsuarioController extends Controller
     public function delete($id){
         Usuario::findOrFail($id)->delete();
         return response("Deleted success");
+    }
+
+    public function login(Request $request){
+        $this->validate($request, [
+            'correo' => 'required',
+            'contrasena' => 'required'
+        ]);
+        $correo = $request->input('correo');
+        $contrasena = $request->input('contrasena');
+        $users = DB::select("SELECT * FROM usuarios WHERE correo = '$correo' AND contrasena = '$contrasena'");
+        if($users == null){
+            $error['error'] = 'User not found';
+            return response()->json($error, 404);
+        }
+        return response()->json($users, 200);
     }
 }

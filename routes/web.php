@@ -15,10 +15,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'api'], function($router){
+$router->group(['prefix' => 'users'], function($router){
+    $router->get('login', 'UsuarioController@login');
+    $router->post('sign','UsuarioController@sign');
     $router->get('usuarios','UsuarioController@getAllUsers');
     $router->get('usuarios/{id}','UsuarioController@getUserById');
-    $router->post('usuarios','UsuarioController@create');
     $router->put('usuarios/{id}', 'UsuarioController@update');
     $router->delete('usuarios/{id}', 'UsuarioController@delete');
 });
