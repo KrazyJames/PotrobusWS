@@ -65,12 +65,12 @@ class UsuarioController extends Controller
 
     public function login(Request $request){
         $this->validate($request, [
-            'correo' => 'required',
+            'username' => 'required',
             'contrasena' => 'required'
         ]);
-        $correo = $request->input('correo');
+        $username = $request->input('username');
         $contrasena = $request->input('contrasena');
-        $users = DB::select("SELECT * FROM usuarios WHERE correo = '$correo' AND contrasena = '$contrasena'");
+        $users = DB::select("SELECT * FROM usuarios WHERE username = '$username' AND contrasena = '$contrasena'");
         if($users == null){
             $error['error'] = 'User not found';
             return response()->json($error, 404);
