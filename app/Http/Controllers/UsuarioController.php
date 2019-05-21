@@ -75,6 +75,6 @@ class UsuarioController extends Controller
             $error['error'] = 'User not found';
             return response()->json($error, 404);
         }
-        return response()->json($users, 200);
+        return response()->json($users[0], 200);
     }
 }

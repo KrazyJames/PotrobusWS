@@ -16,8 +16,8 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'users'], function($router){
-    $router->get('login', 'UsuarioController@login');
-    $router->post('sign','UsuarioController@sign');
+    $router->post('login', 'UsuarioController@login');
+    $router->post('signup','UsuarioController@sign');
     $router->get('usuarios','UsuarioController@getAllUsers');
     $router->get('usuarios/{id}','UsuarioController@getUserById');
     $router->put('usuarios/{id}', 'UsuarioController@update');
